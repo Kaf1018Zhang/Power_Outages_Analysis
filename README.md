@@ -1,4 +1,4 @@
-# Research on the Influence of Gold Share Percentage and Positions Allocation
+# Research on the Influence of Gold Share Percentage and Positions Allocation in League of Legends
 
 Author: Kaijie Zhang
 
