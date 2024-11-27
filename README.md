@@ -1,6 +1,6 @@
 # Research on the Influence of Gold Share Percentage and Positions Allocation
 
-Authors: Kaijie Zhang
+Author: Kaijie Zhang
 
 ## Overview
 
