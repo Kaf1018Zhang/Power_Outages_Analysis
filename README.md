@@ -206,6 +206,25 @@ By observing this dataset, the column CUSTOMERS.AFFECTED is likely to have NMAR 
 
 ## Fairness Analysis
 
+In this analysis, I aim to ensure that my model is fair across different groups, particularly for smaller, unbalanced groups. For example, there are fewer than a hundred power outages caused by hurricanes, making this group significantly smaller. Moreover, based on our bivariate analysis, power outages caused by hurricanes tend to affect more people on average than those not caused by hurricanes. This raises the concern that the model might be unfair in such special cases. To address this, I chose Group X to be power outages caused by hurricanes (IS_HURRICANE = 1) and Group Y to be outages not caused by hurricanes (IS_HURRICANE = 0).
+
+Null Hypothesis: The F1 scores for power outages caused by hurricanes and those not caused by hurricanes are the same, and any observed differences are due to random chance.
+
+Alternative Hypothesis: The F1 score for power outages caused by hurricanes is significantly different from the F1 score for outages not caused by hurricanes.
+
+Evaluation Metric:
+My evaluation metric is the F1 score, as it accounts for both precision and recall and is well-suited for imbalanced datasets.
+
+Test Statistic:
+The test statistic is the absolute difference in F1 scores between the two groups (|F1_hurricane - F1_no_hurricane|).
+
+Significant Level:
+The p-value threshold/Significant Level is set at 0.05 rather than 0.01 to make it easier to reject the null hypothesis, ensuring that the fairness of the model is treated more strictly.
+
+Result:
+The p-value is 0.15. So we fail to rehject the null hypothesis. I could believe my model is more likely to be fair in its approach to events that were caused by hurricanes and those that were not.
+
+
 <iframe
   src="Data/f10.html"
   width="800"
