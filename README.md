@@ -151,6 +151,7 @@ By observing this dataset, the column CUSTOMERS.AFFECTED is likely to have NMAR 
 
 ## 1
 
+I observe the missingness of Amount of peak demand lost during an outage event. The possible missingness type of it is Missing At Random (MAR) depending on the causing reasons category. This makes sense. For example, is the power outage is caused by equipment failure. There should be no eletronic devices to record the specific amount of loss during the case. In this case, the Amount of peak demand lost might be biased and lower.
 
 <iframe
   src="Data/f5.html"
@@ -158,6 +159,14 @@ By observing this dataset, the column CUSTOMERS.AFFECTED is likely to have NMAR 
   height="600"
   frameborder="0"
 ></iframe>
+
+With X: Amount of peak demand lost during an outage event; Y: Reason category of power outage
+
+H0: Any observed differences in missingness of X across reason categories Y are due to random chance.
+
+H1: Any observed differences in missingness of X across reason categories Y are not due to random chance.
+
+Accoring to the graph, my idea is somehow reflected ( the Amount of peak demand lost might be biased and lower when the reason is equipment failure). By making permutation test with TVD as test statistic, I got a p-value of 0. So we reject the null hypothesis and conclude that the missingness of Amount of peak demand lost is likely to depend on the reason category of power outage. 
 
 <iframe
   src="Data/f6.html"
@@ -168,12 +177,24 @@ By observing this dataset, the column CUSTOMERS.AFFECTED is likely to have NMAR 
 
 ## 2
 
+Here is an example checking whether the missingness of number of people affected by the power outage is MAR depending on the Day of restoration. Logically, these two vairables do not share strong relation. The probability of power outage is uniform across the days of a month according to the common sense.
+
 <iframe
   src="Data/f7.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
+
+The visualization shows a chaotic but relatively uniform distribution of propotion. A permutation test with:
+
+With X: Nmber of customers affected; Y: The day of restoration (1 to 31 in general)
+
+H0: Any observed differences in missingness of X across days of restoration Y are due to random chance.
+
+H1: Any observed differences in missingness of X across days of restoration Y are not due to random chance.
+
+is performed. This gives a P-value of 0.456. So I fail to reject the H0 and believe that it is likely that number of people affected by the power outage is NOT MAR depending on the Day of restoration. But it does not mean it is not MAR overall, the missingness of it might depend on, for example, Reason category of power outage again because it is also the recording of objective data during the cases.
 
 <iframe
   src="Data/f8.html"
