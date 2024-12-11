@@ -44,6 +44,10 @@ These are the columns I selected for used. The original data includes 1534 rows 
 
 ### Data Cleaning
 
+
+
+### Univariate Analysis
+
 <iframe
   src="Data/f0"
   width="800"
@@ -51,28 +55,108 @@ These are the columns I selected for used. The original data includes 1534 rows 
   frameborder="0"
 ></iframe>
 
-### Univariate Analysis
+<iframe
+  src="Data/f1"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+<iframe
+  src="Data/outage_map.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+
+
+
+
 
 ### Bivariate Analysis
 
+<iframe
+  src="Data/f3"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+
+<iframe
+  src="Data/f4"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 
 ### Interesting Aggregates
 
-![Outage Map](data/agg1.png)
+| IS_HURRICANE | Total_Customers_Affected | Average_Customers_Affected | Event_Count |
+| :----------- | -----------------------: | -------------------------: | ----------: |
+| False        |             1.29e+08    |                  126804.85 |        1462 |
+| True         |             2.72e+07    |                  382673.06 |          72 |
 
-![Outage Map](data/agg2.png)
+---
+
+| CLIMATE.REGION      | equipment failure | fuel supply emergency | intentional attack | islanding | public appeal | severe weather | system operability disruption |
+| :------------------ | ----------------: | ---------------------: | -----------------: | --------: | ------------: | -------------: | ---------------------------: |
+| Central             |          87750.00 |                 0.00  |            110.71  |   9666.67 |          0.00 |       148706.65 |                     210450.00 |
+| East North Central  |              0.00 |                 0.00  |            660.11  |      0.00 |       7600.00 |       134972.50 |                     759737.67 |
+| Northeast           |          28575.75 |                 0.50  |           1055.58  |      0.00 |      18600.00 |       169466.93 |                     530758.86 |
+| Southwest           |          55666.67 |                 0.00  |             327.42 |   35230.00 |          0.00 |        85138.43 |                     135655.57 |
+| West                |         198608.14 |                 0.00  |            14060.0 |    5039.19 |          0.00 |       361041.40 |                     152040.45 |
+| West North Central  |              0.00 |                 0.00  |               0.00 |       0.00 |      34500.00 |        74178.00 |                          0.00 |
+
+
+
 
 ## Assessment of Missingness
 
 ### NMAR Analysis
 
+By observing this dataset, the column CUSTOMERS.AFFECTED is likely to have NMAR (Not Missing At Random) data. The reasons for these missing values cannot be inferred from other columns and are likely related to the values themselves. For example, if certain companies did not report the number of customers affected, it would result in missing values. If the number of affected people is small, the government might choose to report it as zero or not report it at all. Conversely, if the number of affected people is very large, the difficulties in accurate statistics might lead to the results being withheld. Additionally, due to the inconsistency in data collection methods, CUSTOMERS.AFFECTED may be based on various data sources. Significant discrepancies in the reported numbers of affected customers across different sources might render the data invalid, resulting in NaN values.
+
 ### Missingness Dependency
 
+<iframe
+  src="Data/f5"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+<iframe
+  src="Data/f6"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+<iframe
+  src="Data/f7"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+<iframe
+  src="Data/f8"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 ### Hypothesis Testing
 
-
+<iframe
+  src="Data/f9"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 ## Framing a Prediction Problem
 
@@ -89,4 +173,9 @@ These are the columns I selected for used. The original data includes 1534 rows 
 
 ## Fairness Analysis
 
-
+<iframe
+  src="Data/f10"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
