@@ -296,8 +296,8 @@ The following features are continuous or discrete numerical values:
 - `'OUTAGE.RESTORATION.HOUR'`
 - `'ANOMALY.LEVEL'`
 - `'OUTAGE.DURATION'`
+Encoding: These features were scaled using a `StandardScaler` to normalize their values.
 
-Encoding: These features were scaled using a `StandardScaler` to normalize their values for better model performance.
 ---
 ### Categorical Features (3 - Nominal)
 The following features represent unordered categories:
