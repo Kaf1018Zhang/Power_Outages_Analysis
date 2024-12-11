@@ -69,7 +69,7 @@ Let's look over some visualizations about the data.
 The below graph shows the frequency of number of customers affected by the Power Outages, which looks strongly rigth skewed. So most numbers are less 0,5M.
 
 <iframe
-  src="Data/f0"
+  src="Data/f0.html"
   width="800"
   height="600"
   frameborder="0"
@@ -78,7 +78,7 @@ The below graph shows the frequency of number of customers affected by the Power
 The below graph shows the frequency of categories of all the events. They are not uniform and the severe weather occurs the most.
 
 <iframe
-  src="Data/f1"
+  src="Data/f1.html"
   width="800"
   height="600"
   frameborder="0"
@@ -100,7 +100,7 @@ Continue to observe visualizations with more features.
 The below graph shows the total customers affected by years. The distribution is symmetric. 2008 is a secial year because the total people affected is about 20M.
 
 <iframe
-  src="Data/f3"
+  src="Data/f3.html"
   width="800"
   height="600"
   frameborder="0"
@@ -109,7 +109,7 @@ The below graph shows the total customers affected by years. The distribution is
 The below graph shows the mean customers affected by causing reasons. This shows that system issue and weather are the most influential reasons.
 
 <iframe
-  src="Data/f4"
+  src="Data/f4.html"
   width="800"
   height="600"
   frameborder="0"
@@ -127,7 +127,7 @@ This is an aggregation on whether the HURRICANE causes the case. We can see the 
 | False        |             1.29e+08    |                  126804.85 |        1462 |
 | True         |             2.72e+07    |                  382673.06 |          72 |
 
-
+This shows few lines of a pivot table. It includes the data distribution cross the causing reasons and climate region of the US. This table could reflect how climate might lead to higher probability of some particular reasons of Power Outages.
 
 
 | CLIMATE.REGION      | equipment failure | fuel supply emergency | intentional attack | islanding | public appeal | severe weather | system operability disruption |
@@ -141,7 +141,6 @@ This is an aggregation on whether the HURRICANE causes the case. We can see the 
 
 
 
-
 ## Assessment of Missingness
 
 ### NMAR Analysis
@@ -150,29 +149,34 @@ By observing this dataset, the column CUSTOMERS.AFFECTED is likely to have NMAR 
 
 ### Missingness Dependency
 
+## 1
+
+
 <iframe
-  src="Data/f5"
+  src="Data/f5.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
 
 <iframe
-  src="Data/f6"
+  src="Data/f6.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+## 2
+
+<iframe
+  src="Data/f7.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
 
 <iframe
-  src="Data/f7"
-  width="800"
-  height="600"
-  frameborder="0"
-></iframe>
-
-<iframe
-  src="Data/f8"
+  src="Data/f8.html"
   width="800"
   height="600"
   frameborder="0"
@@ -181,7 +185,7 @@ By observing this dataset, the column CUSTOMERS.AFFECTED is likely to have NMAR 
 ### Hypothesis Testing
 
 <iframe
-  src="Data/f9"
+  src="Data/f9.html"
   width="800"
   height="600"
   frameborder="0"
@@ -203,7 +207,7 @@ By observing this dataset, the column CUSTOMERS.AFFECTED is likely to have NMAR 
 ## Fairness Analysis
 
 <iframe
-  src="Data/f10"
+  src="Data/f10.html"
   width="800"
   height="600"
   frameborder="0"
