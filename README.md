@@ -33,6 +33,9 @@ The dataset is from oracleselixirl. The project is ongoing.
 
 
 
-
-
-"https://cdn.plot.ly/plotly-2.35.2.min.js"
+<iframe
+  src="Data/f0"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
