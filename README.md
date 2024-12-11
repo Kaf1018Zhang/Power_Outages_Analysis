@@ -20,7 +20,6 @@ The number of people affected has always been a very important indicator. When w
 
 These are the columns I selected for used. The original data includes 1534 rows and 57 columns.
 
-
 | Column                     | Description                                                                                                                                    |
 | :------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------- |
 | `'YEAR'`                   | Indicates the year when the outage event occurred                                                                                            |
@@ -40,7 +39,6 @@ These are the columns I selected for used. The original data includes 1534 rows 
 | `'OUTAGE.DURATION'`        | Duration of outage events (in minutes)                                                                                                        |
 | `'DEMAND.LOSS.MW'`         | Amount of peak demand lost during an outage event (in Megawatt)                                                                               |
 | `'CUSTOMERS.AFFECTED'`     | Number of customers affected by the power outage event                                                                                       |
-
 
 ## Data Cleaning and Exploratory Data Analysis
 
@@ -74,10 +72,9 @@ The columns I kept are in 3 groups:
 - `'DEMAND.LOSS.MW'`
 - `'CUSTOMERS.AFFECTED'`
 
-
 Then, I combine the start and end time into two columns. But later I realize the datetime itself cannot be the features for later predictions. So I store them respectively into 2*5 features, which generates, for examples, `'OUTAGE.START.YEAR'`, `'OUTAGE.START.MONTH'`, `'OUTAGE.START.DAY'`, `'OUTAGE.START.WEEKDAY'`, `'OUTAGE.START.HOUR'`.
 
-Enlightly, there should be some values that make no sense if they are 0, like 'OUTAGE.DURATION', 'DEMAND.LOSS.MW'. The case might not be considered if the counted time is 0.
+Enlightly, there should be some values that make no sense if they are 0, like `'OUTAGE.DURATION'`  , `'DEMAND.LOSS.MW'`  . The case might not be considered if the counted time is 0.
 
 Finally, I tansform the hurricane names (`'HURRICANE.NAMES'`) to whether caused by them (`'IS_HURRICANE'`).
 
@@ -92,7 +89,6 @@ The below graph shows the frequency of number of customers affected by the Power
   height="600"
   frameborder="0"
 ></iframe>
-
 The below graph shows the frequency of categories of all the events. They are not uniform and the severe weather occurs the most.
 
 <iframe
@@ -101,7 +97,6 @@ The below graph shows the frequency of categories of all the events. They are no
   height="600"
   frameborder="0"
 ></iframe>
-
 The below graph shows the distribution of people affected throughout the US.
 
 <iframe
@@ -110,7 +105,6 @@ The below graph shows the distribution of people affected throughout the US.
   height="600"
   frameborder="0"
 ></iframe>
-
 ### Bivariate Analysis
 
 Continue to observe visualizations with more features.
@@ -123,7 +117,6 @@ The below graph shows the total customers affected by years. The distribution is
   height="600"
   frameborder="0"
 ></iframe>
-
 The below graph shows the mean customers affected by causing reasons. This shows that system issue and weather are the most influential reasons.
 
 <iframe
@@ -132,8 +125,6 @@ The below graph shows the mean customers affected by causing reasons. This shows
   height="600"
   frameborder="0"
 ></iframe>
-
-
 ### Interesting Aggregates
 
 Here are some interesting numbers about the data. 
@@ -149,7 +140,6 @@ This is an aggregation on whether the HURRICANE causes the case. We can see the 
 
 This shows few lines of a pivot table. It includes the data distribution cross the causing reasons and climate region of the US. This table could reflect how climate might lead to higher probability of some particular reasons of Power Outages.
 
-
 | CLIMATE.REGION      | equipment failure | fuel supply emergency | intentional attack | islanding | public appeal | severe weather | system operability disruption |
 | :------------------ | ----------------: | ---------------------: | -----------------: | --------: | ------------: | -------------: | ---------------------------: |
 | Central             |          87750.00 |                 0.00  |            110.71  |   9666.67 |          0.00 |       148706.65 |                     210450.00 |
@@ -159,18 +149,13 @@ This shows few lines of a pivot table. It includes the data distribution cross t
 | West                |         198608.14 |                 0.00  |            14060.0 |    5039.19 |          0.00 |       361041.40 |                     152040.45 |
 | West North Central  |              0.00 |                 0.00  |               0.00 |       0.00 |      34500.00 |        74178.00 |                          0.00 |
 
-
-
 ## Assessment of Missingness
 
 ### NMAR Analysis
-
 By observing this dataset, the column `'CUSTOMERS.AFFECTED'` is likely to have NMAR (Not Missing At Random) data. The reasons for these missing values cannot be inferred from other columns and are likely related to the values themselves. For example, if certain companies did not report the number of customers affected, it would result in missing values. If the number of affected people is small, the government might choose to report it as zero or not report it at all. Conversely, if the number of affected people is very large, the difficulties in accurate statistics might lead to the results being withheld. Additionally, due to the inconsistency in data collection methods, CUSTOMERS.AFFECTED may be based on various data sources. Significant discrepancies in the reported numbers of affected customers across different sources might render the data invalid, resulting in NaN values.
 
 ### Missingness Dependency
-
 ## Test 1
-
 I observe the missingness of Amount of peak demand lost during an outage event. The possible missingness type of it is Missing At Random (MAR) depending on the causing reasons category. This makes sense. For example, is the power outage is caused by equipment failure. There should be no eletronic devices to record the specific amount of loss during the case. In this case, the Amount of peak demand lost might be biased and lower.
 
 <iframe
@@ -179,7 +164,6 @@ I observe the missingness of Amount of peak demand lost during an outage event. 
   height="600"
   frameborder="0"
 ></iframe>
-
 With X: Amount of peak demand lost during an outage event; Y: Reason category of power outage
 
 H0: Any observed differences in missingness of X across reason categories Y are due to random chance.
@@ -198,9 +182,7 @@ Accoring to the graph, my idea is somehow reflected ( the Amount of peak demand 
   height="600"
   frameborder="0"
 ></iframe>
-
 ## Test 2
-
 Here is an example checking whether the missingness of number of people affected by the power outage is MAR depending on the Day of restoration. Logically, these two vairables do not share strong relation. The probability of power outage is uniform across the days of a month according to the common sense.
 
 <iframe
@@ -209,7 +191,6 @@ Here is an example checking whether the missingness of number of people affected
   height="600"
   frameborder="0"
 ></iframe>
-
 The visualization shows a chaotic but relatively uniform distribution of propotion. A permutation test with:
 
 With X: Nmber of customers affected; Y: The day of restoration (1 to 31 in general)
@@ -230,9 +211,7 @@ is performed. This gives a P-value of 0.456. So I fail to reject the H0 and beli
   height="600"
   frameborder="0"
 ></iframe>
-
 ### Hypothesis Testing
-
 Hurricanes are serious natural disasters, so I suspect that power outages caused by hurricanes will be more impactful than ordinary power outages: that is, they affect more people. Therefore, I will use a permutation test to observe the relationship between whether an event is caused by a hurricane and the number of customers affected.
 
 With,
@@ -253,17 +232,13 @@ Singificant level: 0.05
   height="600"
   frameborder="0"
 ></iframe>
-
 After a permutation test, we recieve a P-value of 0.0002. Therefore, we reject the null hypothesis at the 0.05 significance level. This result suggests that power outages are more likely to be caused by hurricanes affect significantly more customers on average compared to those not caused by hurricanes.
-
 ## Framing a Prediction Problem
-
 **Problem Type**: Binary Classification  
 **Response Variable**: `'CUSTOMERS.AFFECTED_BINARY'`  
 This variable indicates whether the number of customers affected by a power outage exceeds 50,000. This threshold was chosen to identify highly impactful outages, which are of greater interest for disaster response planning and resource allocation.
 
 ### Features Used for Prediction
-
 ### Numerical Features
 - `'OUTAGE.RESTORATION.YEAR'`
 - `'OUTAGE.RESTORATION.MONTH'`
@@ -273,30 +248,23 @@ This variable indicates whether the number of customers affected by a power outa
 - `'ANOMALY.LEVEL'`
 - `'OUTAGE.DURATION'`
 - `'DEMAND.LOSS.MW'`
-
 ### Categorical Features
 - `'IS_HURRICANE'`
 - `'NERC.REGION'`
 - `'CLIMATE.REGION'`
 - `'CLIMATE.CATEGORY'`
 - `'CAUSE.CATEGORY'`
-
 ---
-
 ### Evaluation Metric
-
 **Metric Used**: F1-Score  
 **Reason for Choice**:  
 - The dataset is imbalanced, with fewer instances of outages affecting more than 50,000 customers compared to less impactful outages.  
 - F1-score balances precision and recall, making it a suitable choice to evaluate model performance in such cases. Accuracy alone would be misleading, as it could be high even if the model fails to predict the minority class correctly.
-
 ---
 About the reason of choosen features: GENERAL INFORMATION gives an overall idea of the case. For example, some particular state has more people and lead to a higher predicted value. REGIONAL CLIMATE INFORMATION describe how some region with serious climate might lead to higher responded values. OUTAGE EVENTS INFORMATION describes the detailed records of the power outage, helping us to evaluate the seriousness of the case.
 
 ## Baseline Model
-
 A basic model with random forest classifer, where,
-
 ### Numerical Features (7 - Quantitative)
 The following features are continuous or discrete numerical values:
 - `'OUTAGE.RESTORATION.YEAR'`
@@ -308,20 +276,22 @@ The following features are continuous or discrete numerical values:
 - `'OUTAGE.DURATION'`
 
 **Encoding**: These features were scaled using a `StandardScaler` to normalize their values for better model performance.
-
 ---
-
 ### Categorical Features (3 - Nominal)
 The following features represent unordered categories:
 - `'NERC.REGION'`
 - `'CLIMATE.REGION'`
 - `'CLIMATE.CATEGORY'`
 
-Classification Model Evaluation:
-Accuracy: 0.76
-Precision: 0.80
-Recall: 0.85
-F1 Score: 0.83
+## Classification Model Evaluation
+
+| Metric      | Value |
+| :---------- | :---- |
+| **Accuracy**  | 0.76  |
+| **Precision** | 0.80  |
+| **Recall**    | 0.85  |
+| **F1 Score**  | 0.83  |
+
 
 This is acutally a very impressive score. It implies that even with a relatively default model, the features are helpful to predict the numbers of affected people.
 
@@ -333,11 +303,14 @@ Best Parameters: {'classifier__class_weight': None, 'classifier__criterion': 'gi
 
 Best F1 Score: 0.8811759938408972
 
-Final Model Evaluation:
-Accuracy: 0.81
-Precision: 0.85
-Recall: 0.88
-F1 Score: 0.86
+## Final Model Evaluation
+| Metric      | Value |
+| :---------- | :---- |
+| **Accuracy**  | 0.81  |
+| **Precision** | 0.85  |
+| **Recall**    | 0.88  |
+| **F1 Score**  | 0.86  |
+
 
 The F1 score improve about 3% from the baseline model. Notice that the hyper-parameter is changed only slightly from the previous one, with few addings of features could make limted improvement. Overall, the final model perform very well with a F1 score of 0.86.
 
@@ -361,7 +334,6 @@ The p-value threshold/Significant Level is set at 0.05 rather than 0.01 to make 
 
 Result:
 The p-value is 0.15. So we fail to rehject the null hypothesis. I could believe my model is more likely to be fair in its approach to events that were caused by hurricanes and those that were not.
-
 
 <iframe
   src="data/f10.html"
