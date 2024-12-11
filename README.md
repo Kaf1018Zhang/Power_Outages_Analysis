@@ -44,6 +44,20 @@ These are the columns I selected for used. The original data includes 1534 rows 
 
 ### Data Cleaning
 
+The columns I kept are in 3 groups:
+
+Group 1: GENERAL INFORMATION: 
+'U.S._STATE', 'NERC.REGION',
+Group 2: REGIONAL CLIMATE INFORMATION:
+'CLIMATE.REGION', 'ANOMALY.LEVEL', 'CLIMATE.CATEGORY',
+Group 3:
+'OUTAGE EVENTS INFORMATION'
+'OUTAGE.START.DATE', 'OUTAGE.START.TIME', 'OUTAGE.RESTORATION.DATE',
+'OUTAGE.RESTORATION.TIME', 'CAUSE.CATEGORY',
+'HURRICANE.NAMES', 'OUTAGE.DURATION', 'DEMAND.LOSS.MW', 'CUSTOMERS.AFFECTED'.
+
+Then, I combine the start and end time into two columns. But later I realize the datetime itself cannot be the features for later predictions. So I store them respectively into 2*5 features, which generates, for examples, 'OUTAGE.RESTORATION.YEAR', 'OUTAGE.RESTORATION.MONTH', 'OUTAGE.RESTORATION.DAY',
+    'OUTAGE.RESTORATION.WEEKDAY', 'OUTAGE.RESTORATION.HOUR'.
 
 
 ### Univariate Analysis
