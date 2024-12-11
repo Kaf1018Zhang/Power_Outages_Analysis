@@ -10,6 +10,7 @@ This is the DSC project for DSC80.
 
 The dataset is from oracleselixirl. The project is ongoing.
 
+
 | Column                     | Description                                                                                                                                    |
 | :------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------- |
 | `'YEAR'`                   | Indicates the year when the outage event occurred                                                                                            |
@@ -29,3 +30,9 @@ The dataset is from oracleselixirl. The project is ongoing.
 | `'OUTAGE.DURATION'`        | Duration of outage events (in minutes)                                                                                                        |
 | `'DEMAND.LOSS.MW'`         | Amount of peak demand lost during an outage event (in Megawatt)                                                                               |
 | `'CUSTOMERS.AFFECTED'`     | Number of customers affected by the power outage event                                                                                       |
+
+
+
+
+
+"https://cdn.plot.ly/plotly-2.35.2.min.js"
