@@ -86,7 +86,7 @@ The below graph shows the frequency of number of customers affected by the Power
 <iframe
   src="data/f0.html"
   width="800"
-  height="600"
+  height="450"
   frameborder="0"
 ></iframe>
 The below graph shows the frequency of categories of all the events. They are not uniform and the severe weather occurs the most.
@@ -94,7 +94,7 @@ The below graph shows the frequency of categories of all the events. They are no
 <iframe
   src="data/f1.html"
   width="800"
-  height="600"
+  height="450"
   frameborder="0"
 ></iframe>
 The below graph shows the distribution of people affected throughout the US.
@@ -102,7 +102,7 @@ The below graph shows the distribution of people affected throughout the US.
 <iframe
   src="data/outage_map.html"
   width="800"
-  height="600"
+  height="450"
   frameborder="0"
 ></iframe>
 ### Bivariate Analysis
@@ -114,7 +114,7 @@ The below graph shows the total customers affected by years. The distribution is
 <iframe
   src="data/f3.html"
   width="800"
-  height="600"
+  height="450"
   frameborder="0"
 ></iframe>
 The below graph shows the mean customers affected by causing reasons. This shows that system issue and weather are the most influential reasons.
@@ -122,7 +122,7 @@ The below graph shows the mean customers affected by causing reasons. This shows
 <iframe
   src="data/f4.html"
   width="800"
-  height="600"
+  height="450"
   frameborder="0"
 ></iframe>
 ### Interesting Aggregates
@@ -161,7 +161,7 @@ I observe the missingness of Amount of peak demand lost during an outage event. 
 <iframe
   src="data/f5.html"
   width="800"
-  height="600"
+  height="450"
   frameborder="0"
 ></iframe>
 With X: Amount of peak demand lost during an outage event; Y: Reason category of power outage
@@ -179,7 +179,7 @@ Accoring to the graph, my idea is somehow reflected ( the Amount of peak demand 
 <iframe
   src="data/f6.html"
   width="800"
-  height="600"
+  height="450"
   frameborder="0"
 ></iframe>
 ## Test 2
@@ -188,7 +188,7 @@ Here is an example checking whether the missingness of number of people affected
 <iframe
   src="data/f7.html"
   width="800"
-  height="600"
+  height="450"
   frameborder="0"
 ></iframe>
 The visualization shows a chaotic but relatively uniform distribution of propotion. A permutation test with:
@@ -208,7 +208,7 @@ is performed. This gives a P-value of 0.456. So I fail to reject the H0 and beli
 <iframe
   src="data/f8.html"
   width="800"
-  height="600"
+  height="450"
   frameborder="0"
 ></iframe>
 ### Hypothesis Testing
@@ -229,7 +229,7 @@ Singificant level: 0.05
 <iframe
   src="data/f9.html"
   width="800"
-  height="600"
+  height="450"
   frameborder="0"
 ></iframe>
 After a permutation test, we recieve a P-value of 0.0002. Therefore, we reject the null hypothesis at the 0.05 significance level. This result suggests that power outages are more likely to be caused by hurricanes affect significantly more customers on average compared to those not caused by hurricanes.
@@ -297,7 +297,7 @@ This is acutally a very impressive score. It implies that even with a relatively
 
 ## Final Model
 
-A improved model with GridSearchCV and more features. They includes 'DEMAND.LOSS.MW', 'IS_HURRICANE', an 'CAUSE.CATEGORY'. They make sense according to the correlation between them and the numbers of affected people shown in the analysis before.
+A improved model with GridSearchCV and more features. They includes `'DEMAND.LOSS.MW'`, `'IS_HURRICANE'`, an `'CAUSE.CATEGORY'`. These new features make sense according to the correlation between them and the numbers of affected people shown in the analysis before. (higher loss means more people suffered; hurricane is more influential than general reasons; different causing reasons have different average numbers of affected people).
 
 Best Parameters: {'classifier__class_weight': None, 'classifier__criterion': 'gini', 'classifier__max_depth': 5, 'classifier__min_samples_leaf': 2, 'classifier__min_samples_split': 2}
 
@@ -313,7 +313,6 @@ Best F1 Score: 0.8811759938408972
 
 
 The F1 score improve about 3% from the baseline model. Notice that the hyper-parameter is changed only slightly from the previous one, with few addings of features could make limted improvement. Overall, the final model perform very well with a F1 score of 0.86.
-
 
 ## Fairness Analysis
 
@@ -338,6 +337,6 @@ The p-value is 0.15. So we fail to rehject the null hypothesis. I could believe 
 <iframe
   src="data/f10.html"
   width="800"
-  height="600"
+  height="450"
   frameborder="0"
 ></iframe>
