@@ -59,8 +59,14 @@ Group 3:
 Then, I combine the start and end time into two columns. But later I realize the datetime itself cannot be the features for later predictions. So I store them respectively into 2*5 features, which generates, for examples, 'OUTAGE.RESTORATION.YEAR', 'OUTAGE.RESTORATION.MONTH', 'OUTAGE.RESTORATION.DAY',
     'OUTAGE.RESTORATION.WEEKDAY', 'OUTAGE.RESTORATION.HOUR'.
 
+Enlightly, there should be some values that make no sense if they are 0, like 'OUTAGE.DURATION', 'DEMAND.LOSS.MW'. The case might not be considered if the counted time is 0.
+
+Finally, I tansform the hurricane names ('HURRICANE.NAMES') to whether caused by them ('IS_HURRICANE').
 
 ### Univariate Analysis
+Let's look over some visualizations about the data.
+
+The below graph shows the frequency of number of customers affected by the Power Outages, which looks strongly rigth skewed. So most numbers are less 0,5M.
 
 <iframe
   src="Data/f0"
@@ -69,12 +75,16 @@ Then, I combine the start and end time into two columns. But later I realize the
   frameborder="0"
 ></iframe>
 
+The below graph shows the frequency of categories of all the events. They are not uniform and the severe weather occurs the most.
+
 <iframe
   src="Data/f1"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
+
+The below graph shows the distribution of people affected throughout the US.
 
 <iframe
   src="Data/outage_map.html"
@@ -83,12 +93,11 @@ Then, I combine the start and end time into two columns. But later I realize the
   frameborder="0"
 ></iframe>
 
-
-
-
-
-
 ### Bivariate Analysis
+
+Continue to observe visualizations with more features.
+
+The below graph shows the total customers affected by years. The distribution is symmetric. 2008 is a secial year because the total people affected is about 20M.
 
 <iframe
   src="Data/f3"
@@ -97,6 +106,7 @@ Then, I combine the start and end time into two columns. But later I realize the
   frameborder="0"
 ></iframe>
 
+The below graph shows the mean customers affected by causing reasons. This shows that system issue and weather are the most influential reasons.
 
 <iframe
   src="Data/f4"
@@ -108,12 +118,17 @@ Then, I combine the start and end time into two columns. But later I realize the
 
 ### Interesting Aggregates
 
+Here are some interesting numbers about the data. 
+
+This is an aggregation on whether the HURRICANE causes the case. We can see the HURRICANE, compare to the general reasons, is more inflential in average.
+
 | IS_HURRICANE | Total_Customers_Affected | Average_Customers_Affected | Event_Count |
 | :----------- | -----------------------: | -------------------------: | ----------: |
 | False        |             1.29e+08    |                  126804.85 |        1462 |
 | True         |             2.72e+07    |                  382673.06 |          72 |
 
----
+
+
 
 | CLIMATE.REGION      | equipment failure | fuel supply emergency | intentional attack | islanding | public appeal | severe weather | system operability disruption |
 | :------------------ | ----------------: | ---------------------: | -----------------: | --------: | ------------: | -------------: | ---------------------------: |
