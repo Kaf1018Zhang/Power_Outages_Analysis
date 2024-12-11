@@ -285,30 +285,26 @@ The following features represent unordered categories:
 
 ## Classification Model Evaluation
 ## Final Model Evaluation
-| Metric      | Value |
-| :---------- | :---- |
-| `'Accuracy'`  | 0.76  |
-| `'Precision'` | 0.80  |
-| `'Recall'`    | 0.85  |
-| `'F1 Score'`  | 0.83  |  
+`'Accuracy'`: 0.76, 
+`'Precision'`: 0.80, 
+`'Recall'`: 0.85, 
+`'F1 Score'`: 0.83.
 
 This is acutally a very impressive score. It implies that even with a relatively default model, the features are helpful to predict the numbers of affected people.
 
 ## Final Model
 
-A improved model with GridSearchCV and more features. They includes `'DEMAND.LOSS.MW'`, `'IS_HURRICANE'`, an `'CAUSE.CATEGORY'`. These new features make sense according to the correlation between them and the numbers of affected people shown in the analysis before. (higher loss means more people suffered; hurricane is more influential than general reasons; different causing reasons have different average numbers of affected people).
+A improved model with GridSearchCV and more features. They includes `'DEMAND.LOSS.MW'`, `'IS_HURRICANE'`, and `'CAUSE.CATEGORY'`. These new features make sense according to the correlation between them and the numbers of affected people shown in the analysis before. (higher loss means more people suffered; hurricane is more influential than general reasons; different causing reasons have different average numbers of affected people).
 
 Best Parameters: {'classifier__class_weight': None, 'classifier__criterion': 'gini', 'classifier__max_depth': 5, 'classifier__min_samples_leaf': 2, 'classifier__min_samples_split': 2}
 
 Best F1 Score: 0.8811759938408972
 
 ## Final Model Evaluation
-| Metric      | Value |
-| :---------- | :---- |
-| `'Accuracy'`  | 0.81  |
-| `'Precision'` | 0.85  |
-| `'Recall'`    | 0.88  |
-| `'F1 Score'`  | 0.86  |                                                       |
+`'Accuracy'`: 0.81, 
+`'Precision'`: 0.85, 
+`'Recall'`: 0.88, 
+`'F1 Score'`: 0.86.|
 
 The F1 score improve about 3% from the baseline model. Notice that the hyper-parameter is changed only slightly from the previous one, with few addings of features could make limted improvement. Overall, the final model perform very well with a F1 score of 0.86.
 
