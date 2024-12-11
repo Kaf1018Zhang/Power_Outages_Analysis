@@ -10,6 +10,8 @@ This is the DSC project for DSC80. The project is investigating a dataset about 
 
 In the project, our dataset is about significant power outages experienced by various states across the continental U.S. In addition to details about these major outages, it provides information on the geographical locations of the outages, regional climate data, land-use features, electricity consumption trends, and the economic profiles of the affected states. The data is included in a single excel file containing 55 variables. 
 
+The dataset is critically important for future prediction to avoid/work with the power outage. By looking closely at the dataset, we could identify and analyze the historical trends. We can alos find patterns of the major outages accoding to the risk predictors implied by the data. Therefore, the dataset is useful.
+
 The dataset is from https://engineering.purdue.edu/LASCI/research-data/outages. The definition reference of the data is from https://www.sciencedirect.com/science/article/pii/S2352340918307182.
 
 ---
@@ -44,7 +46,7 @@ These are the columns I selected for used. The original data includes 1534 rows 
 
 ### Data Cleaning
 
-The columns I kept are in 3 groups:
+The columns I kept are in 3 groups. They are selected because General Information, Regional Climate Information, and Outage Events Information logically relate to the number of affected customers (some states/facilities recorded data in different ways; different climate implies different effect; events details imply the situaion):
 
 ## Feature Groups
 
@@ -78,6 +80,20 @@ Enlightly, there should be some values that make no sense if they are 0, like `'
 
 Finally, I tansform the hurricane names (`'HURRICANE.NAMES'`) to whether caused by them (`'IS_HURRICANE'`).
 
+## DataFrame Preview
+
+| U.S._STATE | NERC.REGION | CLIMATE.REGION    | ANOMALY.LEVEL | ... | OUTAGE.RESTORATION.WEEKDAY | OUTAGE.RESTORATION.HOUR | DEMAND.LOSS.MW_MISSING | CUSTOMERS.AFFECTED_MISSING |
+| :--------- | :---------- | :---------------- | :------------ | :-: | :------------------------ | :--------------------- | :--------------------- | :-------------------------- |
+| Minnesota  | MRO         | East North Central | -0.3         | ... | 6.0                      | 20.0                  | True                   | False                      |
+| Minnesota  | MRO         | East North Central | -0.1         | ... | 6.0                      | 18.0                  | True                   | True                       |
+| Minnesota  | MRO         | East North Central | -1.5         | ... | 3.0                      | 22.0                  | True                   | False                      |
+| Minnesota  | MRO         | East North Central | -0.1         | ... | 2.0                      | 23.0                  | True                   | False                      |
+| Minnesota  | MRO         | East North Central | 1.2          | ... | 6.0                      | 7.0                   | False                  | False                      |
+
+
+### Notes:
+- **"..."** indicates columns not displayed for brevity.
+
 ### Univariate Analysis
 Let's look over some visualizations about the data.
 
@@ -97,7 +113,7 @@ The below graph shows the frequency of categories of all the events. They are no
   height="450"
   frameborder="0"
 ></iframe>
-The below graph shows the distribution of people affected throughout the US.
+The below graph shows the distribution of people affected throughout the US. We can see the California and Texas are more affected by the power outage in total.
 
 <iframe
   src="data/outage_map.html"
@@ -122,7 +138,7 @@ The below graph shows the mean customers affected by causing reasons. This shows
 <iframe
   src="data/f4.html"
   width="800"
-  height="450"
+  height="440"
   frameborder="0"
 ></iframe>
 ### Interesting Aggregates
@@ -174,7 +190,9 @@ Test statistic: TVD
 
 Singificant level: 0.05
 
-Accoring to the graph, my idea is somehow reflected ( the Amount of peak demand lost might be biased and lower when the reason is equipment failure). By making permutation test with TVD as test statistic, I got a p-value of 0. So we reject the null hypothesis and conclude that the missingness of Amount of peak demand lost is likely to depend on the reason category of power outage. 
+Accoring to the graph, my idea is somehow reflected ( the Amount of peak demand lost might be biased and lower when the reason is equipment failure). 
+
+The observed value is 0.44. By making permutation test with TVD as test statistic, I got a p-value of 0. So we reject the null hypothesis and conclude that the missingness of Amount of peak demand lost is likely to depend on the reason category of power outage. 
 
 <iframe
   src="data/f6.html"
@@ -203,7 +221,7 @@ Test statistic: TVD
 
 Singificant level: 0.05
 
-is performed. This gives a P-value of 0.456. So I fail to reject the H0 and believe that it is likely that number of people affected by the power outage is NOT MAR depending on the Day of restoration. But it does not mean it is not MAR overall, the missingness of it might depend on, for example, Reason category of power outage again because it is also the recording of objective data during the cases.
+is performed. The observed value is 0.12. This gives a P-value of 0.456. So I fail to reject the H0 and believe that it is likely that number of people affected by the power outage is NOT MAR depending on the Day of restoration. But it does not mean it is not MAR overall, the missingness of it might depend on, for example, Reason category of power outage again because it is also the recording of objective data during the cases.
 
 <iframe
   src="data/f8.html"
@@ -232,7 +250,8 @@ Singificant level: 0.05
   height="450"
   frameborder="0"
 ></iframe>
-After a permutation test, we recieve a P-value of 0.0002. Therefore, we reject the null hypothesis at the 0.05 significance level. This result suggests that power outages are more likely to be caused by hurricanes affect significantly more customers on average compared to those not caused by hurricanes.
+The observed value is 255868.2. After a permutation test, we recieve a P-value of 0.0002. Therefore, we reject the null hypothesis at the 0.05 significance level. This result suggests that power outages are more likely to be caused by hurricanes affect significantly more customers on average compared to those not caused by hurricanes.
+
 ## Framing a Prediction Problem
 **Problem Type**: Binary Classification  
 **Response Variable**: `'CUSTOMERS.AFFECTED_BINARY'`  
@@ -258,8 +277,11 @@ This variable indicates whether the number of customers affected by a power outa
 ### Evaluation Metric
 **Metric Used**: F1-Score  
 **Reason for Choice**:  
-- The dataset is imbalanced, with fewer instances of outages affecting more than 50,000 customers compared to less impactful outages.  
+
+- The dataset is imbalanced, with fewer instances of outages affecting more than 50,000 customers compared to less impactful outages.
+
 - F1-score balances precision and recall, making it a suitable choice to evaluate model performance in such cases. Accuracy alone would be misleading, as it could be high even if the model fails to predict the minority class correctly.
+
 ---
 About the reason of choosen features: GENERAL INFORMATION gives an overall idea of the case. For example, some particular state has more people and lead to a higher predicted value. REGIONAL CLIMATE INFORMATION describe how some region with serious climate might lead to higher responded values. OUTAGE EVENTS INFORMATION describes the detailed records of the power outage, helping us to evaluate the seriousness of the case.
 
@@ -275,7 +297,7 @@ The following features are continuous or discrete numerical values:
 - `'ANOMALY.LEVEL'`
 - `'OUTAGE.DURATION'`
 
-**Encoding**: These features were scaled using a `StandardScaler` to normalize their values for better model performance.
+Encoding: These features were scaled using a `StandardScaler` to normalize their values for better model performance.
 ---
 ### Categorical Features (3 - Nominal)
 The following features represent unordered categories:
@@ -294,9 +316,11 @@ This is acutally a very impressive score. It implies that even with a relatively
 
 ## Final Model
 
-A improved model with GridSearchCV and more features. They includes `'DEMAND.LOSS.MW'`, `'IS_HURRICANE'`, and `'CAUSE.CATEGORY'`. These new features make sense according to the correlation between them and the numbers of affected people shown in the analysis before. (higher loss means more people suffered; hurricane is more influential than general reasons; different causing reasons have different average numbers of affected people).
+A improved model with GridSearchCV and more features. They includes `'DEMAND.LOSS.MW'`, `'IS_HURRICANE'`, and `'CAUSE.CATEGORY'`. These new features make sense according to the correlation between them and the numbers of affected people shown in the analysis before. (To be more specific about what we observe recently as the reasons to add the features: 1. higher loss implies a higher chance for more people suffered; 2: hurricane is more influential than general reasons; 3: different causing reasons are more likely to have different average numbers of affected people).
 
 Best Parameters: {'classifier__class_weight': None, 'classifier__criterion': 'gini', 'classifier__max_depth': 5, 'classifier__min_samples_leaf': 2, 'classifier__min_samples_split': 2}
+
+Observation: Notice the optimal hyper-parameters are quite similar to the default, the classifier max depth is limited to 5 rather than +inf. It implies that some trees might go so deep that the orginal model overfits a bit.
 
 Best F1 Score: 0.8811759938408972
 
@@ -326,7 +350,7 @@ Significant Level:
 The p-value threshold/Significant Level is set at 0.05 rather than 0.01 to make it easier to reject the null hypothesis, ensuring that the fairness of the model is treated more strictly.
 
 Result:
-The p-value is 0.15. So we fail to rehject the null hypothesis. I could believe my model is more likely to be fair in its approach to events that were caused by hurricanes and those that were not.
+The observed value is 0.15. The p-value is 0.1189. So we fail to rehject the null hypothesis. I could believe my model is more likely to be fair in its approach to events that were caused by hurricanes and those that were not.
 
 <iframe
   src="data/f10.html"
