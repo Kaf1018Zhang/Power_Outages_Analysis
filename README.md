@@ -48,24 +48,38 @@ These are the columns I selected for used. The original data includes 1534 rows 
 
 The columns I kept are in 3 groups:
 
-Group 1: GENERAL INFORMATION: 
-'U.S._STATE', 'NERC.REGION',
+## Feature Groups
 
-Group 2: REGIONAL CLIMATE INFORMATION:
-'CLIMATE.REGION', 'ANOMALY.LEVEL', 'CLIMATE.CATEGORY',
+### Group 1: General Information
+- `'U.S._STATE'`
+- `'NERC.REGION'`
 
-Group 3:
-'OUTAGE EVENTS INFORMATION'
-'OUTAGE.START.DATE', 'OUTAGE.START.TIME', 'OUTAGE.RESTORATION.DATE',
-'OUTAGE.RESTORATION.TIME', 'CAUSE.CATEGORY',
-'HURRICANE.NAMES', 'OUTAGE.DURATION', 'DEMAND.LOSS.MW', 'CUSTOMERS.AFFECTED'.
+---
 
-Then, I combine the start and end time into two columns. But later I realize the datetime itself cannot be the features for later predictions. So I store them respectively into 2*5 features, which generates, for examples, 'OUTAGE.RESTORATION.YEAR', 'OUTAGE.RESTORATION.MONTH', 'OUTAGE.RESTORATION.DAY',
-    'OUTAGE.RESTORATION.WEEKDAY', 'OUTAGE.RESTORATION.HOUR'.
+### Group 2: Regional Climate Information
+- `'CLIMATE.REGION'`
+- `'ANOMALY.LEVEL'`
+- `'CLIMATE.CATEGORY'`
+
+---
+
+### Group 3: Outage Events Information
+- `'OUTAGE.START.DATE'`
+- `'OUTAGE.START.TIME'`
+- `'OUTAGE.RESTORATION.DATE'`
+- `'OUTAGE.RESTORATION.TIME'`
+- `'CAUSE.CATEGORY'`
+- `'HURRICANE.NAMES'`
+- `'OUTAGE.DURATION'`
+- `'DEMAND.LOSS.MW'`
+- `'CUSTOMERS.AFFECTED'`
+
+
+Then, I combine the start and end time into two columns. But later I realize the datetime itself cannot be the features for later predictions. So I store them respectively into 2*5 features, which generates, for examples, `'OUTAGE.START.YEAR'`, `'OUTAGE.START.MONTH'`, `'OUTAGE.START.DAY'`, `'OUTAGE.START.WEEKDAY'`, `'OUTAGE.START.HOUR'`.
 
 Enlightly, there should be some values that make no sense if they are 0, like 'OUTAGE.DURATION', 'DEMAND.LOSS.MW'. The case might not be considered if the counted time is 0.
 
-Finally, I tansform the hurricane names ('HURRICANE.NAMES') to whether caused by them ('IS_HURRICANE').
+Finally, I tansform the hurricane names (`'HURRICANE.NAMES'`) to whether caused by them (`'IS_HURRICANE'`).
 
 ### Univariate Analysis
 Let's look over some visualizations about the data.
@@ -151,7 +165,7 @@ This shows few lines of a pivot table. It includes the data distribution cross t
 
 ### NMAR Analysis
 
-By observing this dataset, the column CUSTOMERS.AFFECTED is likely to have NMAR (Not Missing At Random) data. The reasons for these missing values cannot be inferred from other columns and are likely related to the values themselves. For example, if certain companies did not report the number of customers affected, it would result in missing values. If the number of affected people is small, the government might choose to report it as zero or not report it at all. Conversely, if the number of affected people is very large, the difficulties in accurate statistics might lead to the results being withheld. Additionally, due to the inconsistency in data collection methods, CUSTOMERS.AFFECTED may be based on various data sources. Significant discrepancies in the reported numbers of affected customers across different sources might render the data invalid, resulting in NaN values.
+By observing this dataset, the column `'CUSTOMERS.AFFECTED'` is likely to have NMAR (Not Missing At Random) data. The reasons for these missing values cannot be inferred from other columns and are likely related to the values themselves. For example, if certain companies did not report the number of customers affected, it would result in missing values. If the number of affected people is small, the government might choose to report it as zero or not report it at all. Conversely, if the number of affected people is very large, the difficulties in accurate statistics might lead to the results being withheld. Additionally, due to the inconsistency in data collection methods, CUSTOMERS.AFFECTED may be based on various data sources. Significant discrepancies in the reported numbers of affected customers across different sources might render the data invalid, resulting in NaN values.
 
 ### Missingness Dependency
 
