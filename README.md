@@ -184,6 +184,8 @@ By observing this dataset, the column CUSTOMERS.AFFECTED is likely to have NMAR 
 
 ### Hypothesis Testing
 
+Hurricanes are serious natural disasters, so I suspect that power outages caused by hurricanes will be more impactful than ordinary power outages: that is, they affect more people. Therefore, I will use a permutation test to observe the relationship between whether an event is caused by a hurricane and the number of customers affected.
+
 <iframe
   src="Data/f9.html"
   width="800"
@@ -193,16 +195,28 @@ By observing this dataset, the column CUSTOMERS.AFFECTED is likely to have NMAR 
 
 ## Framing a Prediction Problem
 
-
+My model will try to predict the number of affected costumers. However, we will perform binary classification and set the threshold at 20k affected customers as an indicator that the number of affected customers is high.
 
 ## Baseline Model
 
+A basic model.
 
+Classification Model Evaluation:
+Accuracy: 0.76
+Precision: 0.80
+Recall: 0.85
+F1 Score: 0.83
 
 
 ## Final Model
 
+A improved model with GridSearchCV and more features.
 
+Final Model Evaluation:
+Accuracy: 0.81
+Precision: 0.85
+Recall: 0.88
+F1 Score: 0.86
 
 ## Fairness Analysis
 
