@@ -4,11 +4,19 @@ Author: Kaijie Zhang
 
 ## Overview
 
-This is the DSC project for DSC80. 
+This is the DSC project for DSC80. The project is investigating a dataset about significant power outages in US.
 
 ## Introduction
 
-The dataset is from oracleselixirl. The project is ongoing.
+In the project, our dataset is about significant power outages experienced by various states across the continental U.S. In addition to details about these major outages, it provides information on the geographical locations of the outages, regional climate data, land-use features, electricity consumption trends, and the economic profiles of the affected states. The data is included in a single excel file containing 55 variables. 
+
+The dataset is from https://engineering.purdue.edu/LASCI/research-data/outages. The definition reference of the data is from https://www.sciencedirect.com/science/article/pii/S2352340918307182.
+
+During the project, I will have an overall ideas about the dataset and interesting features helping me to Evaluate Customer Impact of Power Outages.
+
+The number of people affected has always been a very important indicator. When we assess the severity of a disaster or plan to compensate people, the number of people affected will determine the direction of decision-making.
+
+These are the columns I selected for used. The original data includes 1534 rows and 57 columns.
 
 
 | Column                     | Description                                                                                                                                    |
@@ -32,6 +40,9 @@ The dataset is from oracleselixirl. The project is ongoing.
 | `'CUSTOMERS.AFFECTED'`     | Number of customers affected by the power outage event                                                                                       |
 
 
+## Data Cleaning and Exploratory Data Analysis
+
+### Data Cleaning
 
 <iframe
   src="Data/f0"
@@ -39,3 +50,39 @@ The dataset is from oracleselixirl. The project is ongoing.
   height="600"
   frameborder="0"
 ></iframe>
+
+### Univariate Analysis
+
+### Bivariate Analysis
+
+
+### Interesting Aggregates
+
+
+## Assessment of Missingness
+
+### NMAR Analysis
+
+### Missingness Dependency
+
+
+### Hypothesis Testing
+
+
+
+## Framing a Prediction Problem
+
+
+
+## Baseline Model
+
+
+
+
+## Final Model
+
+
+
+## Fairness Analysis
+
+
