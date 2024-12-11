@@ -166,6 +166,10 @@ H0: Any observed differences in missingness of X across reason categories Y are 
 
 H1: Any observed differences in missingness of X across reason categories Y are not due to random chance.
 
+Test statistic: TVD
+
+Singificant level: 0.05
+
 Accoring to the graph, my idea is somehow reflected ( the Amount of peak demand lost might be biased and lower when the reason is equipment failure). By making permutation test with TVD as test statistic, I got a p-value of 0. So we reject the null hypothesis and conclude that the missingness of Amount of peak demand lost is likely to depend on the reason category of power outage. 
 
 <iframe
@@ -194,6 +198,10 @@ H0: Any observed differences in missingness of X across days of restoration Y ar
 
 H1: Any observed differences in missingness of X across days of restoration Y are not due to random chance.
 
+Test statistic: TVD
+
+Singificant level: 0.05
+
 is performed. This gives a P-value of 0.456. So I fail to reject the H0 and believe that it is likely that number of people affected by the power outage is NOT MAR depending on the Day of restoration. But it does not mean it is not MAR overall, the missingness of it might depend on, for example, Reason category of power outage again because it is also the recording of objective data during the cases.
 
 <iframe
@@ -207,6 +215,18 @@ is performed. This gives a P-value of 0.456. So I fail to reject the H0 and beli
 
 Hurricanes are serious natural disasters, so I suspect that power outages caused by hurricanes will be more impactful than ordinary power outages: that is, they affect more people. Therefore, I will use a permutation test to observe the relationship between whether an event is caused by a hurricane and the number of customers affected.
 
+With,
+
+X: Whether power outages caused by hurricanes; Y: Nmber of customers affected
+
+H0: Outages caused by hurricanes affect about same amount of customers on average compared to those not caused by hurricanes.
+
+H1: Outages caused by hurricanes affect significantly more customers on average compared to those not caused by hurricanes.
+
+Test statistic: difference in means of the number of customers affected between power outages caused by hurricanes and those not caused by hurricanes.
+
+Singificant level: 0.05
+
 <iframe
   src="Data/f9.html"
   width="800"
@@ -214,13 +234,68 @@ Hurricanes are serious natural disasters, so I suspect that power outages caused
   frameborder="0"
 ></iframe>
 
+After a permutation test, we recieve a P-value of 0.0002. Therefore, we reject the null hypothesis at the 0.05 significance level. This result suggests that power outages are more likely to be caused by hurricanes affect significantly more customers on average compared to those not caused by hurricanes.
+
 ## Framing a Prediction Problem
 
-My model will try to predict the number of affected costumers. However, we will perform binary classification and set the threshold at 20k affected customers as an indicator that the number of affected customers is high.
+**Problem Type**: Binary Classification  
+**Response Variable**: `'CUSTOMERS.AFFECTED_BINARY'`  
+This variable indicates whether the number of customers affected by a power outage exceeds 50,000. This threshold was chosen to identify highly impactful outages, which are of greater interest for disaster response planning and resource allocation.
+
+### Features Used for Prediction
+
+### Numerical Features
+- `'OUTAGE.RESTORATION.YEAR'`
+- `'OUTAGE.RESTORATION.MONTH'`
+- `'OUTAGE.RESTORATION.DAY'`
+- `'OUTAGE.RESTORATION.WEEKDAY'`
+- `'OUTAGE.RESTORATION.HOUR'`
+- `'ANOMALY.LEVEL'`
+- `'OUTAGE.DURATION'`
+- `'DEMAND.LOSS.MW'`
+
+### Categorical Features
+- `'IS_HURRICANE'`
+- `'NERC.REGION'`
+- `'CLIMATE.REGION'`
+- `'CLIMATE.CATEGORY'`
+- `'CAUSE.CATEGORY'`
+
+---
+
+### Evaluation Metric
+
+**Metric Used**: F1-Score  
+**Reason for Choice**:  
+- The dataset is imbalanced, with fewer instances of outages affecting more than 50,000 customers compared to less impactful outages.  
+- F1-score balances precision and recall, making it a suitable choice to evaluate model performance in such cases. Accuracy alone would be misleading, as it could be high even if the model fails to predict the minority class correctly.
+
+---
+About the reason of choosen features: GENERAL INFORMATION gives an overall idea of the case. For example, some particular state has more people and lead to a higher predicted value. REGIONAL CLIMATE INFORMATION describe how some region with serious climate might lead to higher responded values. OUTAGE EVENTS INFORMATION describes the detailed records of the power outage, helping us to evaluate the seriousness of the case.
 
 ## Baseline Model
 
-A basic model.
+A basic model with random forest classifer, where,
+
+### Numerical Features (7 - Quantitative)
+The following features are continuous or discrete numerical values:
+- `'OUTAGE.RESTORATION.YEAR'`
+- `'OUTAGE.RESTORATION.MONTH'`
+- `'OUTAGE.RESTORATION.DAY'`
+- `'OUTAGE.RESTORATION.WEEKDAY'`
+- `'OUTAGE.RESTORATION.HOUR'`
+- `'ANOMALY.LEVEL'`
+- `'OUTAGE.DURATION'`
+
+**Encoding**: These features were scaled using a `StandardScaler` to normalize their values for better model performance.
+
+---
+
+### Categorical Features (3 - Nominal)
+The following features represent unordered categories:
+- `'NERC.REGION'`
+- `'CLIMATE.REGION'`
+- `'CLIMATE.CATEGORY'`
 
 Classification Model Evaluation:
 Accuracy: 0.76
@@ -228,16 +303,24 @@ Precision: 0.80
 Recall: 0.85
 F1 Score: 0.83
 
+This is acutally a very impressive score. It implies that even with a relatively default model, the features are helpful to predict the numbers of affected people.
 
 ## Final Model
 
-A improved model with GridSearchCV and more features.
+A improved model with GridSearchCV and more features. They includes 'DEMAND.LOSS.MW', 'IS_HURRICANE', an 'CAUSE.CATEGORY'. They make sense according to the correlation between them and the numbers of affected people shown in the analysis before.
+
+Best Parameters: {'classifier__class_weight': None, 'classifier__criterion': 'gini', 'classifier__max_depth': 5, 'classifier__min_samples_leaf': 2, 'classifier__min_samples_split': 2}
+
+Best F1 Score: 0.8811759938408972
 
 Final Model Evaluation:
 Accuracy: 0.81
 Precision: 0.85
 Recall: 0.88
 F1 Score: 0.86
+
+The F1 score improve about 3% from the baseline model. Notice that the hyper-parameter is changed only slightly from the previous one, with few addings of features could make limted improvement. Overall, the final model perform very well with a F1 score of 0.86.
+
 
 ## Fairness Analysis
 
