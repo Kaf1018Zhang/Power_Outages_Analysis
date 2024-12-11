@@ -12,7 +12,9 @@ In the project, our dataset is about significant power outages experienced by va
 
 The dataset is from https://engineering.purdue.edu/LASCI/research-data/outages. The definition reference of the data is from https://www.sciencedirect.com/science/article/pii/S2352340918307182.
 
-During the project, I will have an overall ideas about the dataset and interesting features helping me to Evaluate Customer Impact of Power Outages.
+---
+
+During the project, we will have an overall ideas about the dataset and interesting features helping me to Evaluate Customer Impact of Power Outages.
 
 The number of people affected has always been a very important indicator. When we assess the severity of a disaster or plan to compensate people, the number of people affected will determine the direction of decision-making.
 
@@ -48,8 +50,10 @@ The columns I kept are in 3 groups:
 
 Group 1: GENERAL INFORMATION: 
 'U.S._STATE', 'NERC.REGION',
+
 Group 2: REGIONAL CLIMATE INFORMATION:
 'CLIMATE.REGION', 'ANOMALY.LEVEL', 'CLIMATE.CATEGORY',
+
 Group 3:
 'OUTAGE EVENTS INFORMATION'
 'OUTAGE.START.DATE', 'OUTAGE.START.TIME', 'OUTAGE.RESTORATION.DATE',
@@ -69,7 +73,7 @@ Let's look over some visualizations about the data.
 The below graph shows the frequency of number of customers affected by the Power Outages, which looks strongly rigth skewed. So most numbers are less 0,5M.
 
 <iframe
-  src="Data/f0.html"
+  src="data/f0.html"
   width="800"
   height="600"
   frameborder="0"
@@ -78,7 +82,7 @@ The below graph shows the frequency of number of customers affected by the Power
 The below graph shows the frequency of categories of all the events. They are not uniform and the severe weather occurs the most.
 
 <iframe
-  src="Data/f1.html"
+  src="data/f1.html"
   width="800"
   height="600"
   frameborder="0"
@@ -87,7 +91,7 @@ The below graph shows the frequency of categories of all the events. They are no
 The below graph shows the distribution of people affected throughout the US.
 
 <iframe
-  src="Data/outage_map.html"
+  src="data/outage_map.html"
   width="800"
   height="600"
   frameborder="0"
@@ -100,7 +104,7 @@ Continue to observe visualizations with more features.
 The below graph shows the total customers affected by years. The distribution is symmetric. 2008 is a secial year because the total people affected is about 20M.
 
 <iframe
-  src="Data/f3.html"
+  src="data/f3.html"
   width="800"
   height="600"
   frameborder="0"
@@ -109,7 +113,7 @@ The below graph shows the total customers affected by years. The distribution is
 The below graph shows the mean customers affected by causing reasons. This shows that system issue and weather are the most influential reasons.
 
 <iframe
-  src="Data/f4.html"
+  src="data/f4.html"
   width="800"
   height="600"
   frameborder="0"
@@ -126,6 +130,8 @@ This is an aggregation on whether the HURRICANE causes the case. We can see the 
 | :----------- | -----------------------: | -------------------------: | ----------: |
 | False        |             1.29e+08    |                  126804.85 |        1462 |
 | True         |             2.72e+07    |                  382673.06 |          72 |
+
+---
 
 This shows few lines of a pivot table. It includes the data distribution cross the causing reasons and climate region of the US. This table could reflect how climate might lead to higher probability of some particular reasons of Power Outages.
 
@@ -149,12 +155,12 @@ By observing this dataset, the column CUSTOMERS.AFFECTED is likely to have NMAR 
 
 ### Missingness Dependency
 
-## 1
+## Test 1
 
 I observe the missingness of Amount of peak demand lost during an outage event. The possible missingness type of it is Missing At Random (MAR) depending on the causing reasons category. This makes sense. For example, is the power outage is caused by equipment failure. There should be no eletronic devices to record the specific amount of loss during the case. In this case, the Amount of peak demand lost might be biased and lower.
 
 <iframe
-  src="Data/f5.html"
+  src="data/f5.html"
   width="800"
   height="600"
   frameborder="0"
@@ -173,18 +179,18 @@ Singificant level: 0.05
 Accoring to the graph, my idea is somehow reflected ( the Amount of peak demand lost might be biased and lower when the reason is equipment failure). By making permutation test with TVD as test statistic, I got a p-value of 0. So we reject the null hypothesis and conclude that the missingness of Amount of peak demand lost is likely to depend on the reason category of power outage. 
 
 <iframe
-  src="Data/f6.html"
+  src="data/f6.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
 
-## 2
+## Test 2
 
 Here is an example checking whether the missingness of number of people affected by the power outage is MAR depending on the Day of restoration. Logically, these two vairables do not share strong relation. The probability of power outage is uniform across the days of a month according to the common sense.
 
 <iframe
-  src="Data/f7.html"
+  src="data/f7.html"
   width="800"
   height="600"
   frameborder="0"
@@ -205,7 +211,7 @@ Singificant level: 0.05
 is performed. This gives a P-value of 0.456. So I fail to reject the H0 and believe that it is likely that number of people affected by the power outage is NOT MAR depending on the Day of restoration. But it does not mean it is not MAR overall, the missingness of it might depend on, for example, Reason category of power outage again because it is also the recording of objective data during the cases.
 
 <iframe
-  src="Data/f8.html"
+  src="data/f8.html"
   width="800"
   height="600"
   frameborder="0"
@@ -228,7 +234,7 @@ Test statistic: difference in means of the number of customers affected between 
 Singificant level: 0.05
 
 <iframe
-  src="Data/f9.html"
+  src="data/f9.html"
   width="800"
   height="600"
   frameborder="0"
@@ -344,7 +350,7 @@ The p-value is 0.15. So we fail to rehject the null hypothesis. I could believe 
 
 
 <iframe
-  src="Data/f10.html"
+  src="data/f10.html"
   width="800"
   height="600"
   frameborder="0"
