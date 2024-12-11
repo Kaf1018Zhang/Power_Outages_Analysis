@@ -56,8 +56,12 @@ These are the columns I selected for used. The original data includes 1534 rows 
 ### Bivariate Analysis
 
 
+
 ### Interesting Aggregates
 
+![Outage Map](data/agg1.png)
+
+![Outage Map](data/agg2.png)
 
 ## Assessment of Missingness
 
