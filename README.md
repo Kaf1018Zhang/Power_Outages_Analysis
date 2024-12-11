@@ -296,6 +296,7 @@ The following features are continuous or discrete numerical values:
 - `'OUTAGE.RESTORATION.HOUR'`
 - `'ANOMALY.LEVEL'`
 - `'OUTAGE.DURATION'`
+  
 Encoding: These features were scaled using a `StandardScaler` to normalize their values.
 
 ---
