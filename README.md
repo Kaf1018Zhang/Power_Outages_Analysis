@@ -4,7 +4,7 @@ Author: Kaijie Zhang
 
 ## Overview
 
-This is the DSC project for DSC80. The project is investigating a dataset about significant power outages in US.
+The project investigates a dataset about significant power outages in US. The codes are hidden but you can access the report website.
 
 ## Introduction
 
